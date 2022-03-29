@@ -64,5 +64,39 @@ function init() {
                 }
             },  
         },
+
+        {
+            type: 'list',
+            name: 'menuList',
+            message: 'How would you like to continue? (Required)',
+            choices: [
+                "Add an Engineer",
+                "Add an Intern",
+                "Finish building my team",
+            ],
+            validate: menuList => {
+                if (menuList) {
+                    return true;
+                } else {
+                    console.log('Please select one.');
+                    return false;
+                }
+            }
+        },
     ])
+    .then(responses => {
+        generateMarkdown(responses);
+        writeToFile("GenerateEmployeeProfile", generateMarkdown(responses));
+    })
+
+    function writeToFile(fileName, data) {
+        fs.writeFile(fileName, data, (err) => {
+            if (err) {
+                console.error(err);
+            }
+            console.log('The Employee Profile Generator has been created!');
+        })
+    }
+
 }
+init()
