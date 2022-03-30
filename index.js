@@ -1,7 +1,9 @@
-const employeeDirectory = require('employeeDirectory');
+//const employeeDirectory = require('employeeDirectory');
 const fs = require('fs');
 const inquirer = require('inquirer');
-const generateMarkdown = require('./lib/generateMarkdown');
+const generateMarkdown = require('./src/generateMarkdown');
+const Manager = require('./lib/Manager');
+const employees = []
 
 function init() {
     inquirer.prompt([
@@ -85,8 +87,11 @@ function init() {
         },
     ])
     .then(responses => {
-        generateMarkdown(responses);
-        writeToFile("GenerateEmployeeProfile", generateMarkdown(responses));
+        console.log(responses);
+        const manager = new Manager(responses.teamManagerName, responses.employeeId, responses.employeeEmail, responses.officeNumber)
+        employees.push(manager)
+       // generateMarkdown(responses);
+       // writeToFile("GenerateEmployeeProfile", generateMarkdown(responses));
     })
 
     function writeToFile(fileName, data) {
