@@ -74,7 +74,7 @@ function init() {
             choices: [
                 "Add an Engineer",
                 "Add an Intern",
-                "Finish building my team",
+                "I do not want to add anymore team members",
             ],
             validate: menuList => {
                 if (menuList) {
