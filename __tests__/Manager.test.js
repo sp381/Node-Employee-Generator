@@ -1,6 +1,6 @@
-const Engineer = require('../lib/Engineer');
+const Manager = require('../lib/Manager'); 
 
-test('get engineer github', () => {
-    const engineer = new Engineer('Sarah', 1, 'email@email.com', 'sp381')
-    expect(engineer.github).toEqual(expect.any(String))
+test('get manager officeNumber', () => {
+    const manager = new Manager('Sarah', 1, 'email@email.com', 1)
+    expect(manager.officeNumber).toEqual(expect.any(Number))
 })
