@@ -4,7 +4,6 @@ const Manager = require('./lib/Manager');
 const Employee = require('./lib/Employee');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
-const generateMarkdown = require('./src/generateMarkdown');
 const employees = []
 console.log(employees);
 const managerQuestions = [
@@ -188,10 +187,6 @@ function init() {
             default: 
             break
         }
-        //const manager = new Manager(responses.teamManagerName, responses.employeeId, responses.employeeEmail, responses.officeNumber)
-    //     employees.push(manager)
-    //    generateMarkdown(responses);
-    //    writeToFile("GenerateEmployeeProfile", generateMarkdown(responses));
     })
 
     function writeToFile(fileName, data) {
