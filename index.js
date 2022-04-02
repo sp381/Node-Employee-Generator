@@ -2,6 +2,8 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 const Manager = require('./lib/Manager');
 const Employee = require('./lib/Employee');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
 const generateMarkdown = require('./src/generateMarkdown');
 const employees = []
 console.log(employees);
@@ -27,6 +29,7 @@ const engineerQuestions = [
     type: 'input',
     name: 'githubName',
     message: 'Enter team members GitHub username (Required): ',
+    default: 'sp381',
     validate: githubName => {
         if (githubName) {
             return true;
@@ -43,7 +46,7 @@ const internQuestions = [
         type: 'input',
         name: 'schoolName',
         message: 'Enter team members school name (Required): ',
-        default: '1',
+        default: 'UofA Bootcamp',
         validate: schoolName => {
             if (schoolName) {
                 return true;
@@ -100,33 +103,48 @@ const baseEmployeeQuestions = [
         },  
     },
 ]
+const managerData = () => {
+    const questions = baseEmployeeQuestions.concat(managerQuestions)
+        inquirer.prompt(questions)
+            .then(data => {
+                console.log(data);
+                const empObject = new Employee(data.employeeName, data.employeeId, data.employeeEmail)
+                employees.push(empObject)
+                init()
+            })
+}
+
 const engineerData = () => {
     const questions = baseEmployeeQuestions.concat(engineerQuestions)
-    inquirer.prompt(questions)
-                .then(data => {
-                    console.log(data);
-                    init()
-                })
+        inquirer.prompt(questions)
+            .then(data => {
+                console.log(data);
+                const empObject = new Employee(data.employeeName, data.employeeId, data.employeeEmail)
+                employees.push(empObject)
+                init()
+            })
 }
 
 const internData = () => {
     const questions = baseEmployeeQuestions.concat(internQuestions)
-    inquirer.prompt(questions)
-                .then(data => {
-                    console.log(data);
-                    init()
-                })
+        inquirer.prompt(questions)
+            .then(data => {
+                console.log(data);
+                const empObject = new Employee(data.employeeName, data.employeeId, data.employeeEmail)
+                employees.push(empObject)
+                init()
+            })
 }
 
 const employeeData = () => {
     const questions = baseEmployeeQuestions
-    inquirer.prompt(questions)
-                .then(data => {
-                    console.log(data);
-                    const empObject = new Employee(data.employeeName, data.employeeId, data.employeeEmail)
-                    employees.push(empObject)
-                    init()
-                })
+        inquirer.prompt(questions)
+            .then(data => {
+                console.log(data);
+                const empObject = new Employee(data.employeeName, data.employeeId, data.employeeEmail)
+                employees.push(empObject)
+                init()
+            })
 }
 
 function init() {
@@ -142,71 +160,14 @@ function init() {
                 'Employee',
                 'Exit',
             ],
-            // validate: teamManagerName => {
-            //     if (teamManagerName) {
-            //         return true;
-            //     } else {
-            //         console.log('Please enter the team managers name here!');
-            //         return false;
-            //     }
-            // },  
         },
-
-        // {
-        //     type: 'input',
-        //     name: 'employeeId',
-        //     message: 'Enter team managers name (Required): ',
-        //     default: '1',
-        //     validate: employeeId => {
-        //         if (employeeId) {
-        //             return true;
-        //         } else {
-        //             console.log('Please enter the employees ID here!');
-        //             return false;
-        //         }
-        //     },  
-        // },
-
-        // {
-        //     type: 'input',
-        //     name: 'employeeEmail',
-        //     message: 'Enter team managers email (Required): ',
-        //     default: 'teammanager@email.com',
-        //     validate: employeeEmail => {
-        //         if (employeeEmail) {
-        //             return true;
-        //         } else {
-        //             console.log('Please enter the email!');
-        //             return false;
-        //         }
-        //     },  
-        // },
-
-        // {
-        //     type: 'list',
-        //     name: 'menuList',
-        //     message: 'How would you like to continue? (Required)',
-        //     choices: [
-        //         "Add an Engineer",
-        //         "Add an Intern",
-        //         "I do not want to add anymore team members",
-        //     ],
-        //     validate: menuList => {
-        //         if (menuList) {
-        //             return true;
-        //         } else {
-        //             console.log('Please select one.');
-        //             return false;
-        //         }
-        //     }
-        // },
     ])
     .then(responses => {
         console.log(responses.employeeType);
         switch(responses.employeeType) {
             case('Manager'): {
                 console.log('Managers been selected');
-                init()
+                managerData()
                 break
             }
             case('Engineer'): {
